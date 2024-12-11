@@ -1,0 +1,183 @@
+package generated.main;
+
+import de.fhg.iais.roberta.runtime.*;
+import de.fhg.iais.roberta.runtime.ev3.*;
+
+import de.fhg.iais.roberta.mode.general.*;
+import de.fhg.iais.roberta.mode.action.*;
+import de.fhg.iais.roberta.mode.sensor.*;
+import de.fhg.iais.roberta.mode.action.ev3.*;
+import de.fhg.iais.roberta.mode.sensor.ev3.*;
+
+import de.fhg.iais.roberta.components.*;
+
+import java.util.LinkedHashSet;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+import lejos.remote.nxt.NXTConnection;
+
+public class lab2 {
+    private static Configuration brickConfiguration;
+
+    private Set<UsedSensor> usedSensors = new LinkedHashSet<UsedSensor>(Arrays.asList(new UsedSensor(SensorPort.S3, SensorType.COLOR, ColorSensorMode.COLOUR), new UsedSensor(SensorPort.S2, SensorType.GYRO, GyroSensorMode.ANGLE)));
+    private Hal hal = new Hal(brickConfiguration, usedSensors);
+
+    public static void main(String[] args) {
+        try {
+             brickConfiguration = new EV3Configuration.Builder()
+                .setWheelDiameter(5.6)
+                .setTrackWidth(18.0)
+                .addActor(ActorPort.B, new Actor(ActorType.LARGE, true, DriveDirection.FOREWARD, MotorSide.RIGHT))
+                .addActor(ActorPort.C, new Actor(ActorType.LARGE, true, DriveDirection.FOREWARD, MotorSide.LEFT))
+                .addSensor(SensorPort.S2, new Sensor(SensorType.GYRO))
+                .addSensor(SensorPort.S3, new Sensor(SensorType.COLOR))
+                .build();
+
+            new lab2().run();
+        } catch ( Exception e ) {
+            Hal.displayExceptionWaitForKeyPress(e);
+        }
+    }
+
+    float ___c = -1;
+    float ___s = 0;
+    float ___velR = 300;
+    float ___sensisbg = 15;
+    PickColor ___coior = PickColor.WHITE;
+    float ___sensibdis = 20;
+    float ___velG = 20;
+    PickColor ___nido = PickColor.BLUE;
+    PickColor ___colorbus = PickColor.WHITE;
+    PickColor ___alimento = PickColor.RED;
+    PickColor ___colorenc = PickColor.WHITE;
+
+    public void run() throws Exception {
+        hal.rotateDirectionAngle(TurnDirection.LEFT, ___velG, 0);
+        while ( ! (( hal.getColorSensorColour(SensorPort.S3) == PickColor.GREEN ) || ( ( hal.getColorSensorColour(SensorPort.S3) == PickColor.BLUE ) || ( hal.getColorSensorColour(SensorPort.S3) == PickColor.RED ) )) ) {
+            hal.regulatedDrive(DriveDirection.FOREWARD, ___velR);
+        }
+        if ( hal.getColorSensorColour(SensorPort.S3) == PickColor.GREEN ) {
+            while ( hal.getGyroSensorAngle(SensorPort.S2) <= 90 ) {
+                ___c = hal.getGyroSensorAngle(SensorPort.S2);
+                hal.rotateDirectionRegulated(TurnDirection.RIGHT, ___velG);
+            }
+            while ( ! (( hal.getColorSensorColour(SensorPort.S3) == PickColor.GREEN ) || ( ( hal.getColorSensorColour(SensorPort.S3) == PickColor.BLUE ) || ( hal.getColorSensorColour(SensorPort.S3) == PickColor.RED ) )) ) {
+                hal.regulatedDrive(DriveDirection.FOREWARD, ___velR);
+            }
+            if ( hal.getColorSensorColour(SensorPort.S3) == PickColor.GREEN ) {
+                while ( hal.getGyroSensorAngle(SensorPort.S2) <= 270 ) {
+                    hal.rotateDirectionRegulated(TurnDirection.RIGHT, ___velG);
+                }
+                hal.resetGyroSensor(SensorPort.S2);
+                ___c = 1;
+            } else {
+                ___coior = hal.getColorSensorColour(SensorPort.S3);
+                ___c = 0;
+                hal.resetGyroSensor(SensorPort.S2);
+            }
+        } else {
+            ___coior = hal.getColorSensorColour(SensorPort.S3);
+            ___c = 0;
+            while ( hal.getGyroSensorAngle(SensorPort.S2) <= 90 ) {
+                hal.rotateDirectionRegulated(TurnDirection.RIGHT, ___velG);
+            }
+            hal.resetGyroSensor(SensorPort.S2);
+        }
+        while ( ! (___c == 0) ) {
+            while ( ! (( hal.getColorSensorColour(SensorPort.S3) == PickColor.GREEN ) || ( ___c == 0 )) ) {
+                hal.regulatedDrive(DriveDirection.FOREWARD, ___velR);
+                if ( ( hal.getColorSensorColour(SensorPort.S3) == PickColor.RED ) || ( hal.getColorSensorColour(SensorPort.S3) == PickColor.BLUE ) ) {
+                    ___coior = hal.getColorSensorColour(SensorPort.S3);
+                    ___c = 0;
+                }
+            }
+            if ( ___c == 1 ) {
+                if ( ___s == 0 ) {
+                    while ( hal.getGyroSensorAngle(SensorPort.S2) >= -90 ) {
+                        hal.rotateDirectionRegulated(TurnDirection.LEFT, ___velG);
+                    }
+                    hal.driveDistance(DriveDirection.FOREWARD, ___velR, 20);
+                    while ( hal.getGyroSensorAngle(SensorPort.S2) >= -180 ) {
+                        hal.rotateDirectionRegulated(TurnDirection.LEFT, ___velG);
+                    }
+                    ___s = 1;
+                    hal.resetGyroSensor(SensorPort.S2);
+                } else {
+                    while ( hal.getGyroSensorAngle(SensorPort.S2) <= 90 ) {
+                        hal.rotateDirectionRegulated(TurnDirection.RIGHT, ___velG);
+                    }
+                    hal.driveDistance(DriveDirection.FOREWARD, ___velR, 20);
+                    while ( hal.getGyroSensorAngle(SensorPort.S2) <= 180 ) {
+                        hal.rotateDirectionRegulated(TurnDirection.RIGHT, ___velG);
+                    }
+                    ___s = 0;
+                    hal.resetGyroSensor(SensorPort.S2);
+                }
+            }
+        }
+        if ( ___coior == ___nido ) {
+            ___colorbus = ___alimento;
+            ___colorenc = ___nido;
+        } else {
+            ___colorbus = ___nido;
+            ___colorenc = ___alimento;
+        }
+        hal.resetGyroSensor(SensorPort.S2);
+        if ( ___s == 0 ) {
+            while ( hal.getGyroSensorAngle(SensorPort.S2) >= -180 ) {
+                hal.rotateDirectionRegulated(TurnDirection.LEFT, ___velG);
+            }
+            hal.resetGyroSensor(SensorPort.S2);
+        }
+        ___s = 0;
+        while ( ! (___c == 1) ) {
+            ___sensisbg = 15 + ( 15 * ___s );
+            while ( hal.getGyroSensorAngle(SensorPort.S2) <= ___sensisbg ) {
+                hal.rotateDirectionRegulated(TurnDirection.RIGHT, ___velG);
+            }
+            while ( ! (( hal.getColorSensorColour(SensorPort.S3) == PickColor.GREEN ) || ( ___c == 1 )) ) {
+                hal.regulatedDrive(DriveDirection.FOREWARD, ___velR);
+                if ( hal.getColorSensorColour(SensorPort.S3) == ___colorbus ) {
+                    ___c = 1;
+                }
+            }
+            if ( ___c == 0 ) {
+                while ( ! (( hal.getColorSensorColour(SensorPort.S3) == ___colorenc ) || ( ___c == 1 )) ) {
+                    hal.regulatedDrive(DriveDirection.BACKWARD, ___velR);
+                    if ( hal.getColorSensorColour(SensorPort.S3) == ___colorbus ) {
+                        ___c = 1;
+                    }
+                }
+                ___s = ___s + 1;
+            }
+        }
+        if ( ___colorenc == ___nido ) {
+            while ( ! (hal.getColorSensorColour(SensorPort.S3) == ___colorenc) ) {
+                hal.regulatedDrive(DriveDirection.BACKWARD, ___velR);
+            }
+            for ( float ___k0 = 0; ___k0< 4; ___k0+= 1 ) {
+                while ( ! (hal.getColorSensorColour(SensorPort.S3) == ___colorbus) ) {
+                    hal.regulatedDrive(DriveDirection.FOREWARD, ___velR);
+                }
+                while ( ! (hal.getColorSensorColour(SensorPort.S3) == ___colorenc) ) {
+                    hal.regulatedDrive(DriveDirection.BACKWARD, ___velR);
+                }
+            }
+        } else {
+            for ( float ___k1 = 0; ___k1< 5; ___k1+= 1 ) {
+                while ( ! (hal.getColorSensorColour(SensorPort.S3) == ___colorbus) ) {
+                    hal.regulatedDrive(DriveDirection.FOREWARD, ___velR);
+                }
+                while ( ! (hal.getColorSensorColour(SensorPort.S3) == ___colorenc) ) {
+                    hal.regulatedDrive(DriveDirection.BACKWARD, ___velR);
+                }
+            }
+        }
+    }
+}
