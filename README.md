@@ -1,5 +1,5 @@
-Proyecto de Prácticas con el Robot Sphero RVR
-Descripción
+Proyecto de Prácticas con el Robot Sphero RVR.
+Descripción:
 Este repositorio contiene una serie de prácticas realizadas con el robot Sphero RVR. Incluye guías de práctica, escenarios, y códigos resueltos en JavaScript y bloques utilizados en la aplicación Sphero Edu. Además, se proporciona información sobre las simulaciones de cada práctica realizadas en Open Roberta con el robot Open Roberta Sim EV3 leJOS 0.9.1.
 
 Contenido
