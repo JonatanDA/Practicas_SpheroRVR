@@ -1,0 +1,108 @@
+var velocidad = 50;
+var variance = 0;
+var fuciaR = 0;
+var fuciaV = 0;
+var fuciaA = 0;
+var aguamarinaR = 0;
+var aguamarinaV = 0;
+var aguamarinaA = 0;
+var negroR = 0;
+var negroV = 0;
+var blancoR = 0;
+var blancoV = 0;
+var blancoA = 0;
+var c1 = 0;
+var negroA = 0;
+var velocidad_ = 0;
+var giro = 0;
+
+
+async function startProgram() {
+	c1 = 0;
+	giro = 0;
+	variance = 30;
+	velocidad = 100;
+	velocidad_ = 100;
+	fuciaR = 255;
+	fuciaV = 55;
+	fuciaA = 67;
+	aguamarinaR = 10;
+	aguamarinaV = 200;
+	aguamarinaA = 255;
+	blancoR = 150;
+	blancoV = 100;
+	blancoA = 200;
+	negroR = 80;
+	negroV = 72;
+	negroA = 75;
+	setMainLed({ r: 255, g: 48, b: 77 });
+	setSpeed(velocidad);
+	while (!(c1 === 1)) {
+		await margen();
+		await colorfucia();
+		if (c1 === 1) {
+			for (var _i0 = 0; _i0 < 2; ++_i0) {
+				setSpeed(velocidad_);
+				while (!(c1 === 2)) {
+					await coloraguamarina();
+					await delay(0.025);
+				}
+				setSpeed(velocidad);
+				while (!(c1 === 1)) {
+					await colorfucia();
+					await delay(0.025);
+				}
+				await delay(0.025);
+			}
+			setSpeed(velocidad_);
+			if (c1 === 2) {
+				exitProgram();
+			}
+		}
+		if (c1 === 3 || c1 === 1) {
+			stopRoll();
+			while (!(c1 === 2)) {
+				await coloraguamarina();
+				setSpeed(velocidad_);
+				await delay(0.025);
+			}
+			if (c1 === 2) {
+				stopRoll();
+				giro = giro + 15;
+				setHeading(giro);
+				setSpeed(velocidad);
+			}
+		}
+		await delay(0.025);
+	}
+}
+
+async function coloraguamarina() {
+	if (aguamarinaR + variance > getColorChannel("red") && aguamarinaR - variance < getColorChannel("red")) {
+		if (aguamarinaV + variance > getColorChannel("green") && aguamarinaV - variance < getColorChannel("green")) {
+			if (aguamarinaA + variance > getColorChannel("blue") && aguamarinaA - variance < getColorChannel("blue")) {
+				c1 = 2;
+			}
+		}
+	}
+}
+
+async function colorfucia() {
+	if (fuciaR + variance > getColorChannel("red") && fuciaR - variance < getColorChannel("red")) {
+		if (fuciaV + variance > getColorChannel("green") && fuciaV - variance < getColorChannel("green")) {
+			if (fuciaA + variance > getColorChannel("blue") && fuciaA - variance < getColorChannel("blue")) {
+				c1 = 1;
+			}
+		}
+	}
+}
+
+async function margen() {
+	if (negroR + variance > getColorChannel("red") && negroR - variance < getColorChannel("red")) {
+		if (negroV + variance > getColorChannel("green") && negroV - variance < getColorChannel("green")) {
+			if (negroA + variance > getColorChannel("blue") && negroA - variance < getColorChannel("blue")) {
+				c1 = 3;
+			}
+		}
+	}
+}

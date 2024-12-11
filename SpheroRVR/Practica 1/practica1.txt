@@ -1,0 +1,278 @@
+var posicionx = 0;
+var posiciony = 0;
+var corx = 0;
+var cory = 0;
+var velocidad = 50;
+var birdBlue = 0;
+var blancoR = 0;
+var variance = 0;
+var blancoV = 0;
+var blancoA = 0;
+var birdGreen = 0;
+var amarilloR = 0;
+var amarilloV = 0;
+var amarilloA = 0;
+var birdBlue_1 = 0;
+var birdGreen_1 = 0;
+var VerdeR = 78;
+var VerdeV = 22;
+var VerdeA = 232;
+var azulR = 0;
+var azulV = 0;
+var azulA = 0;
+var rojoR = 0;
+var rojoV = 0;
+var rojoA = 0;
+var negroR = 0;
+var negroV = 0;
+var negroA = 0;
+var moradoR = 0;
+var moradoV = 0;
+var moradoA = 0;
+var c1 = 0;
+
+
+async function startProgram() {
+	posicionx = 2;
+	posiciony = 2;
+	corx = 0;
+	cory = 0;
+	c1 = 0;
+	variance = 50;
+	blancoR = 255;
+	blancoV = 222;
+	blancoA = 222;
+	velocidad = 50;
+	amarilloR = 255;
+	amarilloV = 214;
+	amarilloA = 77;
+	azulR = 18;
+	azulV = 190;
+	azulA = 255;
+	rojoR = 255;
+	rojoV = 50;
+	rojoA = 64;
+	moradoR = 150;
+	moradoV = 100;
+	moradoA = 200;
+	negroR = 93;
+	negroV = 83;
+	negroA = 88;
+	VerdeR = 78;
+	VerdeV = 255;
+	VerdeA = 232;
+	setMainLed({ r: 255, g: 48, b: 77 });
+	await delay(3);
+	while (!(corx === posicionx)) {
+		setSpeed(velocidad);
+		if (moradoR + variance > getColorChannel("red") && moradoR - variance < getColorChannel("red")) {
+			if (moradoV + variance > getColorChannel("green") && moradoV - variance < getColorChannel("green")) {
+				if (moradoA + variance > getColorChannel("blue") && moradoA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (azulR + variance > getColorChannel("red") && azulR - variance < getColorChannel("red")) {
+			if (azulV + variance > getColorChannel("green") && azulV - variance < getColorChannel("green")) {
+				if (azulA + variance > getColorChannel("blue") && azulA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (negroR + variance > getColorChannel("red") && negroR - variance < getColorChannel("red")) {
+			if (negroV + variance > getColorChannel("green") && moradoV - variance < getColorChannel("green")) {
+				if (negroA + variance > getColorChannel("blue") && negroA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (VerdeR + variance > getColorChannel("red") && VerdeR - variance < getColorChannel("red")) {
+			if (VerdeV + variance > getColorChannel("green") && VerdeV - variance < getColorChannel("green")) {
+				if (VerdeA + variance > getColorChannel("blue") && VerdeA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (rojoR + variance > getColorChannel("red") && rojoR - variance < getColorChannel("red")) {
+			if (rojoV + variance > getColorChannel("green") && rojoV - variance < getColorChannel("green")) {
+				if (rojoA + variance > getColorChannel("blue") && rojoA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (c1 === 1) {
+			c1 = 0;
+			corx = corx + 1;
+			if (corx !== posicionx) {
+				await rollToDistance(0, velocidad, 15);
+			}
+		}
+		await delay(0.025);
+	}
+	setSpeed(0);
+	setHeading(270);
+	await delay(2);
+	if (cory !== posiciony) {
+		await rollToDistance(270, velocidad, 15);
+	}
+	while (!(cory === posiciony)) {
+		setSpeed(velocidad);
+		if (moradoR + variance > getColorChannel("red") && moradoR - variance < getColorChannel("red")) {
+			if (moradoV + variance > getColorChannel("green") && moradoV - variance < getColorChannel("green")) {
+				if (moradoA + variance > getColorChannel("blue") && moradoA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (azulR + variance > getColorChannel("red") && azulR - variance < getColorChannel("red")) {
+			if (azulV + variance > getColorChannel("green") && azulV - variance < getColorChannel("green")) {
+				if (azulA + variance > getColorChannel("blue") && azulA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (negroR + variance > getColorChannel("red") && negroR - variance < getColorChannel("red")) {
+			if (negroV + variance > getColorChannel("green") && negroV - variance < getColorChannel("green")) {
+				if (negroA + variance > getColorChannel("blue") && negroA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (VerdeR + variance > getColorChannel("red") && VerdeR - variance < getColorChannel("red")) {
+		}
+		if (rojoR + variance > getColorChannel("red") && rojoR - variance < getColorChannel("red")) {
+			if (rojoV + variance > getColorChannel("green") && rojoV - variance < getColorChannel("green")) {
+				if (rojoA + variance > getColorChannel("blue") && rojoA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (c1 === 1) {
+			c1 = 0;
+			cory = cory + 1;
+			if (cory !== posiciony) {
+				await rollToDistance(270, velocidad, 15);
+			}
+		}
+		await delay(0.025);
+	}
+	setSpeed(0);
+	setMainLed({ r: 58, g: 255, b: 28 });
+	await delay(2);
+	if (cory === 3) {
+		setHeading(0);
+	}
+	if (cory !== 3) {
+		await rollToDistance(270, velocidad, 15);
+	}
+	while (!(cory === 3)) {
+		setSpeed(velocidad);
+		if (moradoR + variance > getColorChannel("red") && moradoR - variance < getColorChannel("red")) {
+			if (moradoV + variance > getColorChannel("green") && moradoV - variance < getColorChannel("green")) {
+				if (moradoA + variance > getColorChannel("blue") && moradoA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (azulR + variance > getColorChannel("red") && azulR - variance < getColorChannel("red")) {
+			if (azulV + variance > getColorChannel("green") && azulV - variance < getColorChannel("green")) {
+				if (azulA + variance > getColorChannel("blue") && azulA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (negroR + variance > getColorChannel("red") && negroR - variance < getColorChannel("red")) {
+			if (negroV + variance > getColorChannel("green") && negroV - variance < getColorChannel("green")) {
+				if (negroA + variance > getColorChannel("blue") && negroA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (VerdeR + variance > getColorChannel("red") && VerdeR - variance < getColorChannel("red")) {
+			if (VerdeV + variance > getColorChannel("green") && VerdeV - variance < getColorChannel("green")) {
+				if (VerdeA + variance > getColorChannel("blue") && VerdeA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (rojoR + variance > getColorChannel("red") && rojoR - variance < getColorChannel("red")) {
+			if (rojoV + variance > getColorChannel("green") && rojoV - variance < getColorChannel("green")) {
+				if (rojoA + variance > getColorChannel("blue") && rojoA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (c1 === 1) {
+			c1 = 0;
+			cory = cory + 1;
+			if (cory !== 3) {
+				await rollToDistance(270, velocidad, 15);
+			}
+		}
+		await delay(0.025);
+	}
+	setSpeed(0);
+	setMainLed({ r: 146, g: 255, b: 135 });
+	await delay(2);
+	if (corx !== 3) {
+		await rollToDistance(0, 38, 15);
+	}
+	while (!(corx === 3)) {
+		setSpeed(velocidad);
+		if (moradoR + variance > getColorChannel("red") && moradoR - variance < getColorChannel("red")) {
+			if (moradoV + variance > getColorChannel("green") && moradoV - variance < getColorChannel("green")) {
+				if (moradoA + variance > getColorChannel("blue") && moradoA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (azulR + variance > getColorChannel("red") && azulR - variance < getColorChannel("red")) {
+			if (azulV + variance > getColorChannel("green") && azulV - variance < getColorChannel("green")) {
+				if (azulA + variance > getColorChannel("blue") && azulA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (negroR + variance > getColorChannel("red") && negroR - variance < getColorChannel("red")) {
+			if (negroV + variance > getColorChannel("green") && negroV - variance < getColorChannel("green")) {
+				if (negroA + variance > getColorChannel("blue") && negroA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (VerdeR + variance > getColorChannel("red") && VerdeR - variance < getColorChannel("red")) {
+			if (VerdeV + variance > getColorChannel("green") && VerdeV - variance < getColorChannel("green")) {
+				if (VerdeA + variance > getColorChannel("blue") && VerdeA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (rojoR + variance > getColorChannel("red") && rojoR - variance < getColorChannel("red")) {
+			if (rojoV + variance > getColorChannel("green") && rojoV - variance < getColorChannel("green")) {
+				if (rojoA + variance > getColorChannel("blue") && rojoA - variance < getColorChannel("blue")) {
+					c1 = 1;
+				}
+			}
+		}
+		if (c1 === 1) {
+			c1 = 0;
+			corx = corx + 1;
+			if (corx !== 3) {
+				await rollToDistance(0, velocidad, 15);
+			}
+		}
+		if (c1 === 1) {
+			c1 = 0;
+			corx = corx + 1;
+			if (corx !== 3) {
+				await rollToDistance(0, velocidad, 15);
+			}
+		}
+		await delay(0.025);
+	}
+	setSpeed(0);
+	exitProgram();
+}
+
+async function hola(num0, num1, color0) {
+}
