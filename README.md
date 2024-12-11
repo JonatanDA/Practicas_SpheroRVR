@@ -18,7 +18,7 @@ Descripciones y configuraciones de los diferentes escenarios utilizados en las p
 - **Bloques (Sphero Edu)**: Soluciones de los ejercicios utilizando bloques en la aplicación Sphero Edu.
 
 ### Simulaciones en Open Roberta
-Información y código de las simulaciones realizadas en la plataforma Open Roberta con el robot Open Roberta Sim EV3 leJOS 0.9.1.
+Escenas y código de las simulaciones realizadas en la plataforma Open Roberta con el robot Open Roberta Sim EV3 leJOS 0.9.1.
 
 ## Requisitos
 
