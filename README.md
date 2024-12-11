@@ -37,4 +37,4 @@ Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para má
 
 ## Contacto
 
-Si tienes alguna pregunta o sugerencia, no dudes en contactarme a través de mi correo electrónico: [tu_correo@ejemplo.com](mailto:tu_correo@ejemplo.com).
+Si tienes alguna pregunta o sugerencia, no dudes en contactarme a través de mi correo electrónico: jhonatandiaz1820@gmail.com.
